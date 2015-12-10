@@ -1,0 +1,42 @@
+# generic files to ignore
+*~
+*.bak
+*.lock
+*.log
+*.DS_Store
+*.swp
+*.out
+*.patch
+Thumbs.db
+Desktop.ini
+._*
+
+# java generated files
+*.class
+*.jar
+*.war
+*.ear
+
+# maven
+target/
+reports/
+release.properties
+pom.xml.releaseBackup
+
+# Intellij
+*.iml
+.idea/
+*.ipr
+*.iws
+atlassian-ide-plugin.xml
+
+# Eclipse
+.project
+.metadata
+.classpath
+.settings/
+.externalToolBuilders/
+*.launch
+.checkstyle
+.pmd
+.pmdruleset.xml
