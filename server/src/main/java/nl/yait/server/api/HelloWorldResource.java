@@ -28,6 +28,8 @@ public class HelloWorldResource {
     @Timed
     public Saying helloWorld(@QueryParam("name") Optional<String> name) {
         final String value = String.format(template, name.or(defaultName));
-        return new Saying(counter.incrementAndGet(), value);
+        return new Saying.Builder()
+                .id(counter.incrementAndGet())
+                .content(value).build();
     }
 }

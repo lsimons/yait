@@ -9,21 +9,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SayingTest {
 
+    public final static Saying SAYING = new Saying.Builder()
+            .id(1).content("Hello, Stranger!").build();
+
     private static final ObjectMapper MAPPER = Jackson.newObjectMapper();
 
     @Test
     public void serializesToJSON() throws Exception {
-        Saying saying = new Saying(1, "Hi!");
         String expected = MAPPER.writeValueAsString(
                 MAPPER.readValue(fixture("fixtures/saying.json"), Saying.class));
-        String serialized = MAPPER.writeValueAsString(saying);
+        String serialized = MAPPER.writeValueAsString(SAYING);
         assertThat(serialized).isEqualTo(expected);
     }
 
     @Test
     public void deSerializesFromJSON() throws Exception {
-        Saying saying = new Saying(1, "Hi!");
         Saying expected = MAPPER.readValue(fixture("fixtures/saying.json"), Saying.class);
-        assertThat(expected).isEqualTo(saying);
+        assertThat(expected).isEqualTo(SAYING);
     }
 }

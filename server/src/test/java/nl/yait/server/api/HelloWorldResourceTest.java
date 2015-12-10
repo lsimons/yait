@@ -5,6 +5,9 @@ import nl.yait.server.model.Saying;
 import org.junit.ClassRule;
 import org.junit.Test;
 
+import javax.ws.rs.client.WebTarget;
+
+import static nl.yait.server.model.SayingTest.SAYING;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class HelloWorldResourceTest {
@@ -17,11 +20,13 @@ public class HelloWorldResourceTest {
             .addResource(new HelloWorldResource(template, defaultName))
             .build();
 
-    private final Saying saying = new Saying(1, "Hello, Stranger!");
-
     @Test
     public void testHelloWorld() {
-        assertThat(resources.client().target("/hello-world").request().get(Saying.class))
-                .isEqualTo(saying);
+        assertThat(getHelloWorldTarget().request().get(Saying.class))
+                .isEqualTo(SAYING);
+    }
+
+    protected WebTarget getHelloWorldTarget() {
+        return resources.client().target("/hello-world");
     }
 }
