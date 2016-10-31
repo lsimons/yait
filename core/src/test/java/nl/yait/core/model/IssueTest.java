@@ -1,4 +1,4 @@
-package nl.yait.server.model;
+package nl.yait.core.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dropwizard.jackson.Jackson;
@@ -7,24 +7,25 @@ import org.junit.Test;
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SayingTest {
-
-    public final static Saying SAYING = new Saying.Builder()
-            .id(1).content("Hello, Stranger!").build();
+public final class IssueTest {
+    private static final ID ID = new ID.Builder()
+            .value("1").build();
+    private static final Issue ISSUE = new Issue.Builder()
+            .id(ID).build();
 
     private static final ObjectMapper MAPPER = Jackson.newObjectMapper();
 
     @Test
     public void serializesToJSON() throws Exception {
         String expected = MAPPER.writeValueAsString(
-                MAPPER.readValue(fixture("fixtures/saying.json"), Saying.class));
-        String serialized = MAPPER.writeValueAsString(SAYING);
+                MAPPER.readValue(fixture("fixtures/issue.json"), Issue.class));
+        String serialized = MAPPER.writeValueAsString(ISSUE);
         assertThat(serialized).isEqualTo(expected);
     }
 
     @Test
     public void deSerializesFromJSON() throws Exception {
-        Saying expected = MAPPER.readValue(fixture("fixtures/saying.json"), Saying.class);
-        assertThat(expected).isEqualTo(SAYING);
+        Issue expected = MAPPER.readValue(fixture("fixtures/issue.json"), Issue.class);
+        assertThat(expected).isEqualTo(ISSUE);
     }
 }

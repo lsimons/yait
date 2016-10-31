@@ -1,4 +1,4 @@
-package nl.yait.server.model;
+package nl.yait.core.model;
 
 public interface Identified {
     ID getId();

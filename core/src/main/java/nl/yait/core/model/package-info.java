@@ -1,4 +1,5 @@
 @Value.Style(strictBuilder = true)
-package nl.yait.server.model;
+
+package nl.yait.core.model;
 
 import org.immutables.value.Value;

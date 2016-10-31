@@ -1,7 +1,8 @@
-package nl.yait.server.model;
+package nl.yait.core.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.base.Preconditions;
 import org.immutables.value.Value;
 
 import java.net.MalformedURLException;
@@ -14,6 +15,11 @@ import java.net.URL;
 @JsonDeserialize(as = ImmutableID.class)
 public interface ID {
     String getValue();
+
+    @Value.Check
+    default void check() {
+        Preconditions.checkArgument(!getValue().isEmpty(), "'value' should not be empty");
+    }
 
     default URI asURI() throws URISyntaxException {
         String value = getValue();
@@ -44,15 +50,14 @@ public interface ID {
     }
 
     default long asLong() throws NumberFormatException {
-        Long longValue = Long.parseLong(getValue());
-        return longValue;
+        return Long.parseLong(getValue());
     }
 
     default boolean isLong() {
         try {
             asLong();
             return true;
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }

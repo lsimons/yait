@@ -14,6 +14,7 @@
     <packaging>pom</packaging>
     <properties>
         <yait.dropwizard.version>0.9.1</yait.dropwizard.version>
+        <yait.dropwizard.java8.version>0.9.0-1</yait.dropwizard.java8.version>
         <yait.junit.version>4.12</yait.junit.version>
     </properties>
     <build>
@@ -76,13 +77,29 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*Test.java</include>
+                            <include>**/*Contract.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>2.15</version>
                     <dependencies>
                         <dependency>
                             <groupId>com.puppycrawl.tools</groupId>
                             <artifactId>checkstyle</artifactId>
-                            <version>6.4.1</version>
+                            <version>7.1</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>nl.yait</groupId>
+                            <artifactId>yait-checkstyle</artifactId>
+                            <version>${project.version}</version>
                         </dependency>
                     </dependencies>
                     <configuration>
@@ -92,12 +109,13 @@
                     <executions>
                         <execution>
                             <id>validate</id>
-                            <phase>validate</phase>
+                            <phase>verify</phase>
                             <configuration>
                                 <consoleOutput>true</consoleOutput>
                                 <failsOnError>true</failsOnError>
                                 <linkXRef>false</linkXRef>
                                 <sourceDirectory>${basedir}/src</sourceDirectory>
+                                <configLocation>yait_checks.xml</configLocation>
                             </configuration>
                             <goals>
                                 <goal>checkstyle</goal>
@@ -119,7 +137,7 @@
                     <executions>
                         <execution>
                             <id>validate</id>
-                            <phase>validate</phase>
+                            <phase>verify</phase>
                             <goals>
                                 <goal>check</goal>
                             </goals>
@@ -143,6 +161,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>nl.yait</groupId>
+                <artifactId>yait-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>io.dropwizard</groupId>
                 <artifactId>dropwizard-core</artifactId>
                 <version>${yait.dropwizard.version}</version>
@@ -151,6 +175,11 @@
                 <groupId>io.dropwizard</groupId>
                 <artifactId>dropwizard-client</artifactId>
                 <version>${yait.dropwizard.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.dropwizard.modules</groupId>
+                <artifactId>dropwizard-java8</artifactId>
+                <version>${yait.dropwizard.java8.version}</version>
             </dependency>
 
             <dependency>

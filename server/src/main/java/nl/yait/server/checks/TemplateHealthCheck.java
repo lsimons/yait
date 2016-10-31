@@ -2,10 +2,10 @@ package nl.yait.server.checks;
 
 import com.codahale.metrics.health.HealthCheck;
 
-public class TemplateHealthCheck extends HealthCheck {
+public final class TemplateHealthCheck extends HealthCheck {
     private final String template;
 
-    public TemplateHealthCheck(String template) {
+    public TemplateHealthCheck(final String template) {
         this.template = template;
     }
 

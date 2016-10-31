@@ -10,11 +10,11 @@ import org.junit.ClassRule;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 
-public class HelloWorldIT extends HelloWorldResourceTest {
+public final class HelloWorldIT extends HelloWorldResourceTest {
 
     @ClassRule
-    public static final DropwizardAppRule<Configuration> RULE =
-            new DropwizardAppRule<>(Application.class, ResourceHelpers.resourceFilePath("config.yml"));
+    public static final DropwizardAppRule<Configuration> RULE = new DropwizardAppRule<>(
+            Application.class, ResourceHelpers.resourceFilePath("config.yml"));
 
     protected WebTarget getHelloWorldTarget() {
         Client client = new JerseyClientBuilder(RULE.getEnvironment()).build("test client");

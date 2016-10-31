@@ -1,12 +1,13 @@
 package nl.yait.server;
 
+import io.dropwizard.java8.Java8Bundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import nl.yait.server.api.HelloWorldResource;
 import nl.yait.server.checks.TemplateHealthCheck;
 
-public class Application extends io.dropwizard.Application<Configuration> {
-    public static void main(String[] args) throws Exception {
+public final class Application extends io.dropwizard.Application<Configuration> {
+    public static void main(final String[] args) throws Exception {
         new Application().run(args);
     }
 
@@ -16,12 +17,12 @@ public class Application extends io.dropwizard.Application<Configuration> {
     }
 
     @Override
-    public void initialize(Bootstrap<Configuration> bootstrap) {
-        // nothing to do yet
+    public void initialize(final Bootstrap<Configuration> bootstrap) {
+        bootstrap.addBundle(new Java8Bundle());
     }
 
     @Override
-    public void run(Configuration configuration, Environment environment) {
+    public void run(final Configuration configuration, final Environment environment) {
         final HelloWorldResource resource = new HelloWorldResource(
                 configuration.getTemplate(),
                 configuration.getDefaultName()

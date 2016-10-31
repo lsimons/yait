@@ -1,8 +1,10 @@
-package nl.yait.server.model;
+package nl.yait.core.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dropwizard.jackson.Jackson;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -13,12 +15,24 @@ import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class IDTest {
+public final class IDTest {
 
-    public final static ID AN_ID = new ID.Builder()
+    private static final ID AN_ID = new ID.Builder()
             .value("urn-x:foo:bar:my-id").build();
 
     private static final ObjectMapper MAPPER = Jackson.newObjectMapper();
+
+    @Rule
+    public final ExpectedException expectedException = ExpectedException.none();
+
+    @Test
+    public void nonEmpty() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("value");
+        expectedException.expectMessage("should not be empty");
+
+        new ID.Builder().value("").build();
+    }
 
     @Test
     public void serializesToJSON() throws Exception {
@@ -59,7 +73,7 @@ public class IDTest {
     }
 
     @Test
-    public void numberSupport() throws Exception {
+    public void numberSupport() {
         long value = 1L + Integer.MAX_VALUE;
         ID id = new ID.Builder().value("" + value).build();
         assertThat(id.asLong()).isEqualTo(value);
