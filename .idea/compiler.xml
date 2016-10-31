@@ -28,10 +28,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="yait" target="1.8" />
+      <module name="yait" target="1.5" />
       <module name="yait-checkstyle" target="1.8" />
       <module name="yait-core" target="1.8" />
-      <module name="yait-parent" target="1.8" />
+      <module name="yait-parent" target="1.5" />
       <module name="yait-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>

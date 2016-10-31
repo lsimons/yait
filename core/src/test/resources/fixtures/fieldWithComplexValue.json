@@ -1,0 +1,9 @@
+{
+  "name": "myFieldName",
+  "value": {
+    "aProperty": [
+      "an",
+      "array"
+    ]
+  }
+}

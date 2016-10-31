@@ -1,0 +1,15 @@
+{
+  "id": {
+    "value": "1"
+  },
+  "fields": [
+    {
+      "name": "summary",
+      "value": "Example issue"
+    },
+    {
+      "name": "description",
+      "value": "Longer description of this example issue."
+    }
+  ]
+}

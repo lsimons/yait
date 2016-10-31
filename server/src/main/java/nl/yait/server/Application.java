@@ -6,6 +6,7 @@ import io.dropwizard.setup.Environment;
 import nl.yait.server.api.HelloWorldResource;
 import nl.yait.server.checks.TemplateHealthCheck;
 
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings("NM_SAME_SIMPLE_NAME_AS_SUPERCLASS")
 public final class Application extends io.dropwizard.Application<Configuration> {
     public static void main(final String[] args) throws Exception {
         new Application().run(args);

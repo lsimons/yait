@@ -3,6 +3,7 @@ package nl.yait.server;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings("NM_SAME_SIMPLE_NAME_AS_SUPERCLASS")
 public final class Configuration extends io.dropwizard.Configuration {
     @NotEmpty
     private String template;

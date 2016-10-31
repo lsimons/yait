@@ -78,5 +78,21 @@ public final class IDTest {
         ID id = new ID.Builder().value("" + value).build();
         assertThat(id.asLong()).isEqualTo(value);
         assertThat(id.isLong()).isTrue();
+
+        id = new ID.Builder().value("foo").build();
+        assertThat(id.isLong()).isFalse();
+        assertThatThrownBy(id::asLong).isInstanceOf(NumberFormatException.class);
+    }
+
+    @Test
+    public void of() {
+        assertThat(ID.of("foo")).isNotNull();
+    }
+
+    @Test
+    public void compareTo() throws Exception {
+        assertThat(AN_ID.compareTo(AN_ID) == 0);
+        assertThat(AN_ID.compareTo(ID.of("other")) != 0);
+        assertThat(AN_ID.compareTo(null) == 1);
     }
 }

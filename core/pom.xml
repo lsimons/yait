@@ -10,7 +10,6 @@
     <artifactId>yait-core</artifactId>
     <packaging>jar</packaging>
     <name>YAIT Core</name>
-    <version>${project.parent.version}</version>
     <description>YAIT Core</description>
     <url>https://yait.nl</url>
     <dependencies>
