@@ -16,6 +16,7 @@
         <yait.dropwizard.version>0.9.1</yait.dropwizard.version>
         <yait.dropwizard.java8.version>0.9.0-1</yait.dropwizard.java8.version>
         <yait.junit.version>4.12</yait.junit.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <build>
         <resources>
@@ -134,6 +135,20 @@
                         <includeTests>true</includeTests>
                         <verbose>true</verbose>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>validate</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>3.0.4</version>
                     <executions>
                         <execution>
                             <id>validate</id>
