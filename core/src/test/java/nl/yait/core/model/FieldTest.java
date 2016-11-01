@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 public final class FieldTest {
 
-    private static final FieldName A_FIELD_NAME = FieldName.of("myFieldName");
+    private static final Name A_FIELD_NAME = Name.of("myFieldName");
     private static final Object A_VALUE = "Some Value";
     private static final Field A_FIELD = new Field.Builder()
             .name(A_FIELD_NAME).value(A_VALUE).build();

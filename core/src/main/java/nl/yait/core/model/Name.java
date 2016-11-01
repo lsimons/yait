@@ -17,18 +17,18 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Value.Immutable
-@JsonSerialize(as = ImmutableFieldName.class, using = FieldName.FieldNameJsonSerializer.class)
-@JsonDeserialize(as = ImmutableFieldName.class, using = FieldName.FieldNameJsonDeserializer.class)
-public interface FieldName extends Comparable<FieldName> {
+@JsonSerialize(as = ImmutableName.class, using = Name.FieldNameJsonSerializer.class)
+@JsonDeserialize(as = ImmutableName.class, using = Name.FieldNameJsonDeserializer.class)
+public interface Name extends Comparable<Name> {
     Pattern NAME_RE = Pattern.compile("^[a-z](?:[a-z0-9_.-]+)$", Pattern.CASE_INSENSITIVE);
     int NAME_MAX_LENGTH = 64;
 
-    static FieldName of(String name) {
-        return ImmutableFieldName.of(name, Optional.empty());
+    static Name of(String name) {
+        return ImmutableName.of(name, Optional.empty());
     }
 
-    static FieldName of(String name, Namespace namespace) {
-        return ImmutableFieldName.of(name, Optional.of(namespace));
+    static Name of(String name, Namespace namespace) {
+        return ImmutableName.of(name, Optional.of(namespace));
     }
 
     @Value.Parameter
@@ -47,7 +47,7 @@ public interface FieldName extends Comparable<FieldName> {
                         + " special characters _ - and .");
     }
 
-    default int compareTo(@Nullable FieldName other) {
+    default int compareTo(@Nullable Name other) {
         if (other == null) {
             return 1;
         }
@@ -72,12 +72,12 @@ public interface FieldName extends Comparable<FieldName> {
         }
     }
 
-    class Builder extends ImmutableFieldName.Builder {}
+    class Builder extends ImmutableName.Builder {}
 
-    class FieldNameJsonSerializer extends JsonSerializer<FieldName> {
+    class FieldNameJsonSerializer extends JsonSerializer<Name> {
 
         @Override
-        public void serialize(final FieldName value, final JsonGenerator generator,
+        public void serialize(final Name value, final JsonGenerator generator,
                 final SerializerProvider serializers) throws IOException {
             String fullName = value.getName();
             final Optional<Namespace> namespace = value.getNamespace();
@@ -88,13 +88,13 @@ public interface FieldName extends Comparable<FieldName> {
         }
     }
 
-    class FieldNameJsonDeserializer extends JsonDeserializer<FieldName> {
+    class FieldNameJsonDeserializer extends JsonDeserializer<Name> {
         @Override
-        public FieldName deserialize(final JsonParser parser, final DeserializationContext context)
+        public Name deserialize(final JsonParser parser, final DeserializationContext context)
                 throws IOException {
             final String fullName = parser.readValueAs(String.class);
             if (fullName.isEmpty() || !fullName.startsWith("{")) {
-                return FieldName.of(fullName);
+                return Name.of(fullName);
             } else {
                 int endNamespace = fullName.indexOf("}");
                 if (endNamespace == -1) {
@@ -104,7 +104,7 @@ public interface FieldName extends Comparable<FieldName> {
                 final String namespaceString = fullName.substring(1, endNamespace);
                 final String name = fullName.substring(endNamespace + 1);
                 final Namespace namespace = Namespace.of(namespaceString);
-                return FieldName.of(name, namespace);
+                return Name.of(name, namespace);
             }
         }
     }

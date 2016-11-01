@@ -10,20 +10,20 @@ import javax.annotation.Nullable;
 @JsonSerialize(as = ImmutableField.class)
 @JsonDeserialize(as = ImmutableField.class)
 public interface Field extends Comparable<Field> {
-    static Field of(FieldName name, Object value) {
+    static Field of(Name name, Object value) {
         return ImmutableField.of(name, value);
     }
 
     static Field of(String name, Object value) {
-        return ImmutableField.of(FieldName.of(name), value);
+        return ImmutableField.of(Name.of(name), value);
     }
 
     static Field of(Namespace namespace, String name, Object value) {
-        return ImmutableField.of(FieldName.of(name, namespace), value);
+        return ImmutableField.of(Name.of(name, namespace), value);
     }
 
     @Value.Parameter
-    FieldName getName();
+    Name getName();
 
     @Value.Parameter
     Object getValue();
