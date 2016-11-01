@@ -6,12 +6,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class NamespacesTest {
     @Test
-    public void coreNamespace() throws Exception {
+    public final void coreNamespace() throws Exception {
         assertThat(Namespaces.YAIT_CORE).isNotNull();
     }
 
     @Test
-    public void withKnownPrefix() throws Exception {
+    public final void withKnownPrefix() throws Exception {
         Namespace namespaceWithoutPrefix = Namespace.of(Namespaces.YAIT_CORE.getNamespace());
         Namespace prefixed = Namespaces.withWellKnownPrefix(namespaceWithoutPrefix);
         assertThat(prefixed).isEqualTo(Namespaces.YAIT_CORE);
