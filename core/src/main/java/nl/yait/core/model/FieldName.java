@@ -13,6 +13,7 @@ import org.immutables.value.Value;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Value.Immutable
@@ -23,11 +24,18 @@ public interface FieldName extends Comparable<FieldName> {
     int NAME_MAX_LENGTH = 64;
 
     static FieldName of(String name) {
-        return ImmutableFieldName.of(name);
+        return ImmutableFieldName.of(name, Optional.empty());
+    }
+
+    static FieldName of(String name, Namespace namespace) {
+        return ImmutableFieldName.of(name, Optional.of(namespace));
     }
 
     @Value.Parameter
     String getName();
+
+    @Value.Parameter
+    Optional<Namespace> getNamespace();
 
     @Value.Check
     default void check() {
@@ -43,7 +51,25 @@ public interface FieldName extends Comparable<FieldName> {
         if (other == null) {
             return 1;
         }
-        return getName().compareTo(other.getName());
+        final Optional<Namespace> namespace = getNamespace();
+        final Optional<Namespace> otherNamespace = other.getNamespace();
+        if (namespace.isPresent()) {
+            if (otherNamespace.isPresent()) {
+                int namespaceCompare = namespace.get().compareTo(otherNamespace.get());
+                if (namespaceCompare != 0) {
+                    return namespaceCompare;
+                }
+                return getName().compareTo(other.getName());
+            } else {
+                return 1;
+            }
+        } else {
+            if (otherNamespace.isPresent()) {
+                return -1;
+            } else {
+                return getName().compareTo(other.getName());
+            }
+        }
     }
 
     class Builder extends ImmutableFieldName.Builder {}
@@ -53,7 +79,12 @@ public interface FieldName extends Comparable<FieldName> {
         @Override
         public void serialize(final FieldName value, final JsonGenerator generator,
                 final SerializerProvider serializers) throws IOException {
-            generator.writeString(value.getName());
+            String fullName = value.getName();
+            final Optional<Namespace> namespace = value.getNamespace();
+            if (namespace.isPresent()) {
+                fullName = "{" + namespace.get().getNamespace() + "}" + fullName;
+            }
+            generator.writeString(fullName);
         }
     }
 
@@ -61,8 +92,20 @@ public interface FieldName extends Comparable<FieldName> {
         @Override
         public FieldName deserialize(final JsonParser parser, final DeserializationContext context)
                 throws IOException {
-            final String name = parser.readValueAs(String.class);
-            return FieldName.of(name);
+            final String fullName = parser.readValueAs(String.class);
+            if (fullName.isEmpty() || !fullName.startsWith("{")) {
+                return FieldName.of(fullName);
+            } else {
+                int endNamespace = fullName.indexOf("}");
+                if (endNamespace == -1) {
+                    throw new IllegalArgumentException("Cannot parse field name,"
+                            + " namespace prefix has { but not }");
+                }
+                final String namespaceString = fullName.substring(1, endNamespace);
+                final String name = fullName.substring(endNamespace + 1);
+                final Namespace namespace = Namespace.of(namespaceString);
+                return FieldName.of(name, namespace);
+            }
         }
     }
 }

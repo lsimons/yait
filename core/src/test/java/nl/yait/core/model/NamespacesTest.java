@@ -9,4 +9,11 @@ public class NamespacesTest {
     public void coreNamespace() throws Exception {
         assertThat(Namespaces.YAIT_CORE).isNotNull();
     }
+
+    @Test
+    public void withKnownPrefix() throws Exception {
+        Namespace namespaceWithoutPrefix = Namespace.of(Namespaces.YAIT_CORE.getNamespace());
+        Namespace prefixed = Namespaces.withWellKnownPrefix(namespaceWithoutPrefix);
+        assertThat(prefixed).isEqualTo(Namespaces.YAIT_CORE);
+    }
 }
