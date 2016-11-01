@@ -24,7 +24,7 @@ public class SayingTest {
 
     @Test
     public final void deSerializesFromJSON() throws Exception {
-        Saying expected = MAPPER.readValue(fixture("fixtures/saying.json"), Saying.class);
-        assertThat(expected).isEqualTo(SAYING);
+        Saying deserialized = MAPPER.readValue(fixture("fixtures/saying.json"), Saying.class);
+        assertThat(deserialized).isEqualTo(SAYING);
     }
 }

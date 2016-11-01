@@ -44,8 +44,8 @@ public final class IDTest {
 
     @Test
     public void deSerializesFromJSON() throws Exception {
-        ID expected = MAPPER.readValue(fixture("fixtures/id.json"), ID.class);
-        assertThat(expected).isEqualTo(AN_ID);
+        ID deserialized = MAPPER.readValue(fixture("fixtures/id.json"), ID.class);
+        assertThat(deserialized).isEqualTo(AN_ID);
     }
 
     @Test

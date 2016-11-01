@@ -29,8 +29,8 @@ public final class IssueTest {
 
     @Test
     public void deSerializesFromJSON() throws Exception {
-        Issue expected = MAPPER.readValue(fixture("fixtures/issue.json"), Issue.class);
-        assertThat(expected).isEqualTo(AN_ISSUE);
+        Issue deserialized = MAPPER.readValue(fixture("fixtures/issue.json"), Issue.class);
+        assertThat(deserialized).isEqualTo(AN_ISSUE);
     }
 
     @Test
@@ -43,8 +43,9 @@ public final class IssueTest {
 
     @Test
     public void deSerializesFromJSONWithFields() throws Exception {
-        Issue expected = MAPPER.readValue(fixture("fixtures/issueWithFields.json"), Issue.class);
-        assertThat(expected).isEqualTo(ISSUE_WITH_FIELDS);
+        Issue deserialized = MAPPER.readValue(
+                fixture("fixtures/issueWithFields.json"), Issue.class);
+        assertThat(deserialized).isEqualTo(ISSUE_WITH_FIELDS);
     }
 
     @Test

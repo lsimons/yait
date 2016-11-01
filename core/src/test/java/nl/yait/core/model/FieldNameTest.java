@@ -66,8 +66,9 @@ public final class FieldNameTest {
 
     @Test
     public void deSerializesFromJSON() throws Exception {
-        FieldName expected = MAPPER.readValue(fixture("fixtures/fieldName.json"), FieldName.class);
-        assertThat(expected).isEqualTo(A_FIELD_NAME);
+        FieldName deserialized = MAPPER.readValue(
+                fixture("fixtures/fieldName.json"), FieldName.class);
+        assertThat(deserialized).isEqualTo(A_FIELD_NAME);
     }
 
     @Test

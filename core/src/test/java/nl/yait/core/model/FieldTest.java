@@ -43,8 +43,8 @@ public final class FieldTest {
 
     @Test
     public void deSerializesFromJSON() throws Exception {
-        Field expected = MAPPER.readValue(fixture("fixtures/field.json"), Field.class);
-        assertThat(expected).isEqualTo(A_FIELD);
+        Field deserialized = MAPPER.readValue(fixture("fixtures/field.json"), Field.class);
+        assertThat(deserialized).isEqualTo(A_FIELD);
     }
 
     @Test
@@ -57,11 +57,10 @@ public final class FieldTest {
 
     @Test
     public void deSerializesFromJSONWithComplexValue() throws Exception {
-        Field expected = MAPPER.readValue(
+        Field deserialized = MAPPER.readValue(
                 fixture("fixtures/fieldWithComplexValue.json"), Field.class);
-        //assertThat(expected).isEqualTo(A_FIELD_WITH_COMPLEX_VALUE);
-        assertThat(expected.getName()).isEqualTo(A_FIELD_WITH_COMPLEX_VALUE.getName());
-        Map map = (Map) expected.getValue();
+        assertThat(deserialized.getName()).isEqualTo(A_FIELD_WITH_COMPLEX_VALUE.getName());
+        Map map = (Map)deserialized.getValue();
         List someArray = (List) map.get("aProperty");
         String someString = (String) someArray.get(0);
         assertThat(someString).isEqualTo("an");
