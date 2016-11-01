@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 @Value.Immutable
 @JsonSerialize(as = ImmutableField.class)
 @JsonDeserialize(as = ImmutableField.class)
-public interface Field extends Comparable<Field> {
+public interface Field extends Named, Comparable<Field> {
     static Field of(Name name, Object value) {
         return ImmutableField.of(name, value);
     }
