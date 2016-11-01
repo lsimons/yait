@@ -4,11 +4,11 @@
   },
   "fields": [
     {
-      "name": "summary",
+      "name": "{urn:x-yait:core}summary",
       "value": "Example issue"
     },
     {
-      "name": "description",
+      "name": "{urn:x-yait:core}description",
       "value": "Longer description of this example issue."
     }
   ]

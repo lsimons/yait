@@ -14,8 +14,9 @@ public final class IssueTest {
             .id(AN_ID).build();
     private static final Issue ISSUE_WITH_FIELDS = new Issue.Builder()
             .id(AN_ID)
-            .addFields(Field.of("summary", "Example issue"))
-            .addFields(Field.of("description", "Longer description of this example issue."))
+            .addFields(Field.of(Namespaces.YAIT_CORE, "summary", "Example issue"))
+            .addFields(Field.of(Namespaces.YAIT_CORE, "description",
+                    "Longer description of this example issue."))
             .build();
     private static final ObjectMapper MAPPER = Jackson.newObjectMapper();
 

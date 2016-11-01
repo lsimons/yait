@@ -18,6 +18,10 @@ public interface Field extends Comparable<Field> {
         return ImmutableField.of(FieldName.of(name), value);
     }
 
+    static Field of(Namespace namespace, String name, Object value) {
+        return ImmutableField.of(FieldName.of(name, namespace), value);
+    }
+
     @Value.Parameter
     FieldName getName();
 

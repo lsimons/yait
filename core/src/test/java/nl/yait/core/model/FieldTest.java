@@ -14,6 +14,7 @@ import java.util.Map;
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SuppressWarnings("OptionalGetWithoutIsPresent")
 public final class FieldTest {
 
     private static final FieldName A_FIELD_NAME = FieldName.of("myFieldName");
@@ -74,6 +75,12 @@ public final class FieldTest {
     @Test
     public void ofString() {
         assertThat(Field.of(A_FIELD_NAME.getName(), A_VALUE)).isNotNull();
+    }
+
+    @Test
+    public void ofWithNamespace() {
+        assertThat(Field.of(Namespaces.YAIT_CORE, A_FIELD_NAME.getName(), A_VALUE)
+                .getName().getNamespace().get()).isNotNull();
     }
 
     @Test
